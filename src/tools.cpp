@@ -47,6 +47,8 @@ MatrixXd Tools::CalculateJacobian(const VectorXd &x_state) {
 
   //check division by zero
   double squareSum = px * px + py * py;
+  double squareSum_0_5 = sqrt(squareSum);
+  double squareSum_1_5 = pow(squareSum, 1.5);
   if (squareSum < 0.00001) {
     //TODO how to deal with this situation
     cout << "can not divide by zero";
@@ -54,10 +56,10 @@ MatrixXd Tools::CalculateJacobian(const VectorXd &x_state) {
       0, 0, 0, 0,
       0, 0, 0, 0;
   } else {
-    Hj << px / sqrt(squareSum), py / sqrt(squareSum), 0, 0,
+    Hj << px / squareSum_0_5, py / squareSum_0_5, 0, 0,
       -1 * py / squareSum, px / squareSum, 0, 0,
-      py * (vx * py - vy * px) / pow(squareSum, 1.5), px * (vy * px - vx * py) / pow(squareSum, 1.5)
-      , px / sqrt(squareSum), py / sqrt(squareSum);
+      py * (vx * py - vy * px) / squareSum_1_5, px * (vy * px - vx * py) / squareSum_1_5
+      , px / squareSum_0_5, py / squareSum_0_5;
   }
   std::cout << Hj << endl;
   return Hj;

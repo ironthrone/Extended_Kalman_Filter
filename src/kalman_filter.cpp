@@ -53,14 +53,14 @@ void KalmanFilter::UpdateRadar(const VectorXd &z) {
   if (rho < 0.00001) {
     rho_dot = 0;
   } else {
-    rho_dot = (vx * px + vy * py) / sqrt(px * px + py * py);
+    rho_dot = (vx * px + vy * py) / rho;
   }
   h << rho, phi, rho_dot;
   VectorXd y = z - h;
   y(1) = atan2(sin(y(1)), cos(y(1)));
-  MatrixXd Hj(3, 4);
-  MatrixXd S = H_ * P_ * H_.transpose() + R_;
-  MatrixXd K = P_ * H_.transpose() * S.inverse();
+  MatrixXd H_t = H_.transpose();
+  MatrixXd S = H_ * P_ * H_t + R_;
+  MatrixXd K = P_ * H_t * S.inverse();
 
   x_ = x_ + (K * y);
   long x_size = x_.size();
