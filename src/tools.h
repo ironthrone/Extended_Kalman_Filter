@@ -29,6 +29,7 @@ public:
   */
   MatrixXd CalculateJacobian(const VectorXd& x_state);
 
+  VectorXd ConvertRadarMeasure(const VectorXd& radar_measure);
 };
 
 #endif /* TOOLS_H_ */
