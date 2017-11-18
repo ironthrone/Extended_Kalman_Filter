@@ -1,5 +1,6 @@
 #ifndef TOOLS_H_
 #define TOOLS_H_
+
 #include <vector>
 #include "Eigen/Dense"
 
@@ -27,9 +28,9 @@ public:
   /**
   * A helper method to calculate Jacobians.
   */
-  MatrixXd CalculateJacobian(const VectorXd& x_state);
+  MatrixXd CalculateJacobian(const VectorXd &x_state);
 
-  VectorXd ConvertRadarMeasure(const VectorXd& radar_measure);
+  VectorXd ConvertRadarMeasure(const VectorXd &radar_measure);
 };
 
 #endif /* TOOLS_H_ */
